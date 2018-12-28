@@ -1,0 +1,11 @@
+CREATE TABLE People (
+email VARCHAR(50) PRIMARY KEY,
+first_name VARCHAR(30),
+last_name VARCHAR(30),
+dob date,
+date_of_interest date,
+phone_no long,
+city varchar(30),
+lang varchar(20),
+booking_flag boolean
+)
