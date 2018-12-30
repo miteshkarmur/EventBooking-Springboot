@@ -1,11 +1,16 @@
-CREATE TABLE People (
-email VARCHAR(50) PRIMARY KEY,
-first_name VARCHAR(30),
-last_name VARCHAR(30),
+CREATE SCHEMA `peopledb` ;
+
+CREATE TABLE `peopledb`.`people`(
+email varchar(50) PRIMARY KEY,
+first_name varchar(30),
+last_name varchar(30),
 dob date,
 date_of_interest date,
 phone_no long,
 city varchar(30),
 lang varchar(20),
 booking_flag boolean
-)
+);
+
+INSERT INTO `peopledb`.`people` (`email`, `first_name`, `last_name`, `phone_no`, `city`, `lang`, `booking_flag`) VALUES ('mk@gmail.com', 'Mitesh', 'Karmur', '0123456789', 'Pune', 'English', '0');
+INSERT INTO `peopledb`.`people` (`email`, `first_name`, `last_name`, `phone_no`, `city`, `lang`, `booking_flag`) VALUES ('sk@gmail.com', 'Subhash', 'Karmur', '9876543210', 'Gandhinagar', 'French', '1');

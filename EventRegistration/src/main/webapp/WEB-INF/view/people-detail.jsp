@@ -36,12 +36,14 @@
 		</tr>
 	</table>
 
-    <br>
+	<br>
 	<c:if test="${people.bookingFlag}">
 	You have already booked a slot for the event
 	</c:if>
 	<c:if test="${!people.bookingFlag}">
-	   <input type="submit" value="Book Slot" action="/bookEventSlot">
+		<form action="bookEventSlot">
+			<input type="submit" value="Book Slot">
+		</form>
 	</c:if>
 
 </body>
