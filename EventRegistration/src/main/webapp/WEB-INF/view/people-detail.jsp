@@ -41,7 +41,7 @@
 	You have already booked a slot for the event
 	</c:if>
 	<c:if test="${!people.bookingFlag}">
-		<form action="bookEventSlot">
+		<form action="bookEvent">
 			<input type="submit" value="Book Slot">
 		</form>
 	</c:if>

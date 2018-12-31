@@ -8,21 +8,23 @@
 
 <body>
 	<h2>RSVP Event Slot Booking</h2>
-	<h3>Select a City:</h3>
+	<%-- <h3>Select a City:</h3>
 	<form action="citySelected">
 		<form:select path="cities">
 			<form:option value="NONE" label="Select City" />
 			<form:options items="${cities}"/>
 		</form:select>
 		<input type="submit"/>
+	</form> --%>
+
+	<h3>Select a Time Slot:</h3>
+	<form action="slotSelected">
+		<form:select path="slots">
+			<form:option value="NONE" label="Select Slot" />
+			<form:options items="${slots}" />
+		</form:select>
+		<input type="submit" value="Book Slot"/>
 	</form>
-
-	<%-- <h3>Select a Time Slot:</h3>
-	<form:select path="slots">
-		<form:option value="NONE" label="Select Slot" />
-		<form:options items="${slots}" />
-	</form:select> --%>
-
 
 </body>
 

@@ -34,3 +34,11 @@ c_code integer,
 PRIMARY KEY (slot_id),
 FOREIGN KEY (c_code) REFERENCES city(city_code)
 );
+
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('101', '2019-01-01 09:30:00', '20', '1');
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('102', '2019-01-01 12:30:00', '15', '1');
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('103', '2019-01-01 09:30:00', '10', '2');
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('104', '2019-01-02 10:30:00', '15', '3');
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('105', '2019-01-01 09:30:00', '25', '4');
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('106', '2019-01-01 11:30:00', '10', '4');
+INSERT INTO `peopledb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('107', '2019-01-02 15:00:00', '15', '4');
