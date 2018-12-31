@@ -14,3 +14,23 @@ booking_flag boolean
 
 INSERT INTO `peopledb`.`people` (`email`, `first_name`, `last_name`, `phone_no`, `city`, `lang`, `booking_flag`) VALUES ('mk@gmail.com', 'Mitesh', 'Karmur', '0123456789', 'Pune', 'English', '0');
 INSERT INTO `peopledb`.`people` (`email`, `first_name`, `last_name`, `phone_no`, `city`, `lang`, `booking_flag`) VALUES ('sk@gmail.com', 'Subhash', 'Karmur', '9876543210', 'Gandhinagar', 'French', '1');
+
+CREATE TABLE peopledb.city (
+city_code integer PRIMARY KEY,
+City_name varchar(30)
+);
+
+INSERT INTO `peopledb`.`city` (`city_code`, `City_name`) VALUES ('1', 'Delhi');
+INSERT INTO `peopledb`.`city` (`city_code`, `City_name`) VALUES ('2', 'Mumbai');
+INSERT INTO `peopledb`.`city` (`city_code`, `City_name`) VALUES ('3', 'Pune');
+INSERT INTO `peopledb`.`city` (`city_code`, `City_name`) VALUES ('4', 'Gandhinagar');
+
+
+CREATE TABLE peopledb.slot (
+slot_id integer,
+date_time datetime,
+no_of_tickets integer,
+c_code integer,
+PRIMARY KEY (slot_id),
+FOREIGN KEY (c_code) REFERENCES city(city_code)
+);

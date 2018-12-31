@@ -10,7 +10,7 @@
 	
 	<h3>Enter Your Email ID</h3>
 
-	<form action="validateEmail" method="post">
+	<form action="validateEmail">
 		Email: <input type="text" name="email"> <br>
 		<br> <input type="submit" value="Submit">
 	</form>

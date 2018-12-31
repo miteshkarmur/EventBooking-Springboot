@@ -1,28 +1,45 @@
 package com.mitesh.EventRegistration.entity;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+@Entity
+@Table
 public class City {
-
-	private int code;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="city_code")
+	private Integer code;
+    
+    @Column(name="city_name")
 	private String name;
 	
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name="c_code")
 	private List<Slot> slots;
 	
 	public City() {
 		
 	}
 	
-	public City(int code, String name) {
+	public City(Integer code, String name) {
 		this.code = code;
 		this.name = name;
 	}
 	
-	public int getCode() {
+	public Integer getCode() {
 		return code;
 	}
-	public void setCode(int code) {
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 	public String getName() {
@@ -38,6 +55,11 @@ public class City {
 
 	public void setSlots(List<Slot> slots) {
 		this.slots = slots;
+	}
+
+	@Override
+	public String toString() {
+		return name;
 	}
 	
 	
