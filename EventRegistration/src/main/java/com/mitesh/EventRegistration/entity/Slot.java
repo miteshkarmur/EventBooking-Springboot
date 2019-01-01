@@ -61,7 +61,7 @@ public class Slot {
 
 	@Override
 	public String toString() {
-		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		return dateTime.format(format)+"\n Tickets Left: "+noOfTickets ;
 	}
 	

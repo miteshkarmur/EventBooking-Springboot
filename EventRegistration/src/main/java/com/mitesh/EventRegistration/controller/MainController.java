@@ -1,5 +1,6 @@
 package com.mitesh.EventRegistration.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,7 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mitesh.EventRegistration.entity.City;
 import com.mitesh.EventRegistration.entity.People;
@@ -24,13 +29,13 @@ public class MainController {
 
 	@Autowired
 	PeopleService peopleService;
-	
+
 	@Autowired
 	CityService cityService;
-	
+
 	@Autowired
 	SlotService slotService;
-	
+
 	@GetMapping("/")
 	public String getIndexPage() {
 		return "index";
@@ -40,36 +45,52 @@ public class MainController {
 		String email=request.getParameter("email");
 		Optional<People> p=peopleService.getPeopleByEmail(email);
 		if(!p.isPresent()) {
-			//System.out.println("Email id is not pre-registered");
 			model.addAttribute("errorMessage", "Email id is not pre-registered");
 			return "index";
-		}else if(p.get().getBookingFlag()) {
-			System.out.println("Event slot is already booked");
 		}
-		System.out.println(p.get());
 		model.addAttribute("people",p.get());
 		return "people-detail";
 	}
 	@GetMapping("/bookEvent")
 	public String bookEventSlot(Model model) {
 		List<City> citiesList=cityService.getAllCities();
-		model.addAttribute("cities",citiesList);
+		HashMap<Integer, String> citiesMap=new HashMap<>();
+		citiesList.forEach(city->citiesMap.put(city.getCode(), city.getName()));
+		model.addAttribute("cities",citiesMap);
+		model.addAttribute("city",new City());
 		return "slot-booking";
 	}
-	@GetMapping("/citySelected")
-	public String bookEventSlot2(@PathParam("cities") City city, Model model) {
-		//Integer citiId=1;
-		//City city=cityService.getCitybyId(citiId);
-		List<Slot> slotsList=city.getSlots();
-		model.addAttribute("slots",slotsList);
+
+	@RequestMapping(value="/citySelected", method=RequestMethod.POST)
+	public String bookEventSlot2(@ModelAttribute("city") City city, Model model) {
+
+		City cityObj=cityService.getCitybyId(city.getCode());
+		List<Slot> slotsList=cityObj.getSlots();
+		HashMap<Integer, String> slotsMap=new HashMap<>();
+		slotsList.forEach(slot->
+		{	
+			if(slot.getNoOfTickets()>0) {
+				slotsMap.put(slot.getSlotId(), slot.toString());
+			}
+		});
+		model.addAttribute("slots",slotsMap);
+		model.addAttribute("slot",new Slot());
 		return "slot-booking2";
 	}
-	@GetMapping("/slotSelected")
-	public String bookEventSlot2(@PathVariable("slots") Slot slot, Model model) {
-		//Integer citiId=1;
-		//City city=cityService.getCitybyId(citiId);
-		/*List<Slot> slotsList=city.getSlots();
-		model.addAttribute("slots",slotsList);*/
-		return "slot-booking-successful";
+	@RequestMapping(value="/slotSelected",method=RequestMethod.POST)
+	synchronized public String bookEventSlot2(@ModelAttribute("slot") Slot slot, Model model) {
+
+		System.out.println("slot id is : "+slot.getSlotId());
+		Slot slotObj=slotService.getSlotById(slot.getSlotId());
+		System.out.println("slot obj is : "+slotObj);
+		slotObj.setNoOfTickets(slotObj.getNoOfTickets()-1);
+		if(slotObj.getNoOfTickets()>=0) {
+			slotService.saveOrUpdateSlot(slotObj);
+			return "booking-successful";
+		}else {
+			System.out.println("Seats are full");
+			return "failure";
+		}
+		
 	}
 }

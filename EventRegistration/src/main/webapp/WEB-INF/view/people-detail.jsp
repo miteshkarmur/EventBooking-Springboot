@@ -38,7 +38,10 @@
 
 	<br>
 	<c:if test="${people.bookingFlag}">
-	You have already booked a slot for the event
+		You have already booked a slot for the event
+		<p>
+				<a href="${pageContext.request.contextPath}/">Back</a>
+		</p>
 	</c:if>
 	<c:if test="${!people.bookingFlag}">
 		<form action="bookEvent">
