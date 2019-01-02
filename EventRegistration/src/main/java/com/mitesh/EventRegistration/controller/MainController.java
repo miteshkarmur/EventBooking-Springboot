@@ -5,18 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.websocket.server.PathParam;
-
-import org.apache.logging.slf4j.SLF4JProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.mitesh.EventRegistration.entity.City;
 import com.mitesh.EventRegistration.entity.People;
@@ -94,9 +89,13 @@ public class MainController {
 				model.addAttribute("people",people);
 				return "booking-successful";
 			}else {
+				String errorMessage="User has already booked a slot";
+				model.addAttribute("errorMessage",errorMessage);
 				return "failure";
 			}	
 		}else {
+			String errorMessage="Seats are full for this slot ! Try again with other slot";
+			model.addAttribute("errorMessage",errorMessage);
 			return "failure";
 		}
 		

@@ -9,7 +9,11 @@
 <body>
 	<h2>RSVP Event Slot Booking</h2>
 
-	<h3>Something went wrong ! Please try again !</h3>
+	<h3>
+	<c:if test="${not empty errorMessage}">
+		<c:out value="${errorMessage}" />
+	</c:if>
+	</h3>
 	
 	<p>
 		<a href="${pageContext.request.contextPath}/">Back to Home Page</a>
