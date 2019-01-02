@@ -3,6 +3,8 @@ package com.mitesh.EventRegistration.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,10 @@ public class MainController {
 	@Autowired
 	SlotService slotService;
 
+	public static final Pattern VALID_EMAIL_ADDRESS_REGEX = 
+		    Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+	
 	@GetMapping("/")
 	public String getIndexPage() {
 		return "index";
@@ -39,6 +45,13 @@ public class MainController {
 	@GetMapping("/validateEmail")
 	public String validateEmail(HttpServletRequest request, Model model) {
 		String email=request.getParameter("email");
+		
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+        if(!matcher.find()) {
+        	model.addAttribute("errorMessage", "Email id is not valid");
+			return "index";
+        }
+		
 		Optional<People> p=peopleService.getPeopleByEmail(email);
 		if(!p.isPresent()) {
 			model.addAttribute("errorMessage", "Email id is not pre-registered");
