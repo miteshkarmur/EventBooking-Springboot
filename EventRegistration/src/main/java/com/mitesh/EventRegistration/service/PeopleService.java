@@ -7,5 +7,7 @@ import com.mitesh.EventRegistration.entity.People;
 public interface PeopleService {
 
 	public Optional<People> getPeopleByEmail(String emailId);
+
+	public void saveOrUpdateSlot(People people);
 	
 }

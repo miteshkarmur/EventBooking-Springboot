@@ -1,27 +1,5 @@
 CREATE SCHEMA `eventdb` ;
 
-CREATE TABLE `eventdb`.`people`(
-email varchar(50) PRIMARY KEY,
-first_name varchar(30),
-last_name varchar(30),
-dob date,
-phone_no long,
-city varchar(30),
-lang varchar(20),
-booking_flag boolean,
-slot_city varchar(30),
-slot_datetime datetime
-);
-
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('mk@gmail.com', 'Mitesh', 'Karmur', '1994-02-26', '0123456789', 'Pune', 'English');
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('sk@gmail.com', 'Subhash', 'Karmur', '1996-01-09', '9876543210', 'Gandhinagar', 'French');
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('pb@gmail.com', 'Prashant', 'Bagade', '1992-05-28', '7418529630', 'Mumbai', 'English');
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('at@gmail.com', 'Anurag', 'Tiwari', '1993-06-18', '9638520741', 'Kolkata', 'English');
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('ss@gmail.com', 'Sandeep', 'Sharma', '1989-08-25', '7538694210', 'Pune', 'French');
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('bd@gmail.com', 'Bhuwnesh', 'Dhakar', '1991-11-10', '1237890456', 'Delhi', 'English');
-INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('ac@gmail.com', 'Amit', 'Chaturvedi', '1995-05-12', '3214569870', 'Surat', 'English');
-
-
 CREATE TABLE eventdb.city (
 city_code integer PRIMARY KEY,
 City_name varchar(30)
@@ -51,3 +29,23 @@ INSERT INTO `eventdb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`)
 INSERT INTO `eventdb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('107', '2019-01-02 15:00:00', '15', '4');
 INSERT INTO `eventdb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('108', '2019-01-02 10:30:00', '5', '2');
 INSERT INTO `eventdb`.`slot` (`slot_id`, `date_time`, `no_of_tickets`, `c_code`) VALUES ('109', '2019-01-01 11:00:00', '10', '3');
+
+CREATE TABLE `eventdb`.`people`(
+email varchar(50) PRIMARY KEY,
+first_name varchar(30),
+last_name varchar(30),
+dob date,
+phone_no long,
+city varchar(30),
+lang varchar(20),
+slot_id integer,
+FOREIGN KEY (slot_id) REFERENCES slot(slot_id)
+);
+
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('mk@gmail.com', 'Mitesh', 'Karmur', '1994-02-26', '0123456789', 'Pune', 'English');
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('sk@gmail.com', 'Subhash', 'Karmur', '1996-01-09', '9876543210', 'Gandhinagar', 'French');
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('pb@gmail.com', 'Prashant', 'Bagade', '1992-05-28', '7418529630', 'Mumbai', 'English');
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('at@gmail.com', 'Anurag', 'Tiwari', '1993-06-18', '9638520741', 'Kolkata', 'English');
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('ss@gmail.com', 'Sandeep', 'Sharma', '1989-08-25', '7538694210', 'Pune', 'French');
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('bd@gmail.com', 'Bhuwnesh', 'Dhakar', '1991-11-10', '1237890456', 'Delhi', 'English');
+INSERT INTO `eventdb`.`people` (`email`, `first_name`, `last_name`, `dob`, `phone_no`, `city`, `lang`) VALUES ('ac@gmail.com', 'Amit', 'Chaturvedi', '1995-05-12', '3214569870', 'Surat', 'English');

@@ -18,4 +18,10 @@ public class PeopleServiceImpl implements PeopleService {
 		return peopleRepo.findById(emailId);
 	}
 
+	@Override
+	public void saveOrUpdateSlot(People people) {
+		peopleRepo.save(people);
+		
+	}
+
 }

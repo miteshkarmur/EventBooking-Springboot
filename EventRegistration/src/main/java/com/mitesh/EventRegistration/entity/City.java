@@ -23,8 +23,7 @@ public class City {
 	private String name;
 	
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name="c_code")
+	@OneToMany(mappedBy="city",cascade = CascadeType.ALL)
 	private List<Slot> slots;
 	
 	public City() {

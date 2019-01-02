@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 
+import org.apache.logging.slf4j.SLF4JProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,6 +50,7 @@ public class MainController {
 			return "index";
 		}
 		model.addAttribute("people",p.get());
+		request.getSession().setAttribute("user_email", email);
 		return "people-detail";
 	}
 	@GetMapping("/bookEvent")
@@ -78,17 +80,23 @@ public class MainController {
 		return "slot-booking2";
 	}
 	@RequestMapping(value="/slotSelected",method=RequestMethod.POST)
-	synchronized public String bookEventSlot2(@ModelAttribute("slot") Slot slot, Model model) {
+	synchronized public String bookEventSlot2(@ModelAttribute("slot") Slot slot, Model model,HttpServletRequest request) {
 
-		System.out.println("slot id is : "+slot.getSlotId());
 		Slot slotObj=slotService.getSlotById(slot.getSlotId());
-		System.out.println("slot obj is : "+slotObj);
-		slotObj.setNoOfTickets(slotObj.getNoOfTickets()-1);
-		if(slotObj.getNoOfTickets()>=0) {
-			slotService.saveOrUpdateSlot(slotObj);
-			return "booking-successful";
+		if(slotObj.getNoOfTickets()>0) {
+			String email=(String) request.getSession().getAttribute("user_email");
+			People people=peopleService.getPeopleByEmail(email).get();
+			if(people.getSlot()==null) {
+				slotObj.setNoOfTickets(slotObj.getNoOfTickets()-1);
+				slotService.saveOrUpdateSlot(slotObj);
+				people.setSlot(slotObj);
+				peopleService.saveOrUpdateSlot(people);
+				model.addAttribute("people",people);
+				return "booking-successful";
+			}else {
+				return "failure";
+			}	
 		}else {
-			System.out.println("Seats are full");
 			return "failure";
 		}
 		

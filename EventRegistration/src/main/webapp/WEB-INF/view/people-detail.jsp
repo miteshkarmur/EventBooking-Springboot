@@ -10,40 +10,26 @@
 <body>
 
 	<h2>User Details</h2>
-	<table>
-		<tr>
-			<th>Date of Interest</th>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Date of Birth</th>
-			<th>Email</th>
-			<th>Phone</th>
-			<th>City</th>
-			<th>Language</th>
-			<th>Flag</th>
-		</tr>
 
-		<tr>
-			<td>${people.dateOfInterest}</td>
-			<td>${people.firstName}</td>
-			<td>${people.lastName}</td>
-			<td>${people.dob}</td>
-			<td>${people.email}</td>
-			<td>${people.phoneNo}</td>
-			<td>${people.city}</td>
-			<td>${people.language}</td>
-			<td>${people.bookingFlag}</td>
-		</tr>
-	</table>
+
+	Full Name: ${people.firstName} ${people.lastName}
+	<br> Date of Birth: ${people.dob}
+	<br> Phone: ${people.phoneNo}
+	<br> City: ${people.city}
+	<br>
 
 	<br>
-	<c:if test="${people.bookingFlag}">
-		You have already booked a slot for the event
+	<c:if test="${not empty people.slot}">
+		<b>You have already booked a slot for the event</b><br>
+		
+		Slot City: ${people.slot.city.name}<br>
+        Slot DateTime: ${people.slot.dateTime}<br>
+
 		<p>
-				<a href="${pageContext.request.contextPath}/">Back</a>
+			<a href="${pageContext.request.contextPath}/">Back</a>
 		</p>
 	</c:if>
-	<c:if test="${!people.bookingFlag}">
+	<c:if test="${empty people.slot}">
 		<form action="bookEvent">
 			<input type="submit" value="Book Slot">
 		</form>
